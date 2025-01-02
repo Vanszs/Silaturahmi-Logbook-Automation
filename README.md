@@ -98,56 +98,7 @@ Proyek ini bertujuan untuk melakukan **otomatisasi pengisian logbook** di situs 
 ]
 ```
 
----
 
-## Contoh Kode
-
-```python
-import json
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from fake_useragent import UserAgent
-import time
-from datetime import datetime
-
-# Konfigurasi
-json_file = "logbook.json"
-username = "22081010153"
-password = "34302"
-
-# Baca JSON
-with open(json_file, "r", encoding="utf-8") as file:
-    data_logbook = json.load(file)
-
-# Inisialisasi WebDriver
-ua = UserAgent()
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument(f"user-agent={ua.random}")
-driver = webdriver.Chrome(options=chrome_options)
-
-try:
-    driver.get("https://silaturahmi.upnjatim.ac.id/login")
-    time.sleep(2)
-
-    # Login
-    driver.find_element(By.XPATH, '...').send_keys(username)
-    driver.find_element(By.XPATH, '...').send_keys(password)
-    driver.find_element(By.XPATH, '...').click()
-    time.sleep(3)
-
-    # Isi Logbook
-    log = data_logbook[0]  # Ambil entri pertama
-    # (Logika pengisian date picker dan deskripsi di sini)
-
-    # Hapus entri berhasil
-    data_logbook.pop(0)
-    with open(json_file, "w", encoding="utf-8") as file:
-        json.dump(data_logbook, file, indent=4)
-
-finally:
-    driver.quit()
-```
 
 ---
 
